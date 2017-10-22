@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class MyReplay : MonoBehaviour
 {
-    private const int bufferFrame = 1000;
+    private const int bufferFrame = 100;
     private MyKeyFrame[] keyFrames = new MyKeyFrame[bufferFrame];
-    private Rigidbody rigidbody;
+    private Rigidbody rbody;
 
-    private GameManager manager;
+    private ReplayManager manager;
 
     // Use this for initialization
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        manager = GameObject.FindObjectOfType<GameManager>();
+        rbody = GetComponent<Rigidbody>();
+        manager = GameObject.FindObjectOfType<ReplayManager>();
     }
 
     // Update is called once per frame
@@ -28,7 +28,6 @@ public class MyReplay : MonoBehaviour
         {
             Playback();
         }
-        Record();
     }
 
     private void Record()
@@ -40,7 +39,7 @@ public class MyReplay : MonoBehaviour
 
     void Playback()
     {
-        rigidbody.isKinematic = false;
+        rbody.isKinematic = false;
         int frame = Time.frameCount % bufferFrame;
         transform.position = keyFrames[frame].position;
         transform.rotation = keyFrames[frame].rotation;
