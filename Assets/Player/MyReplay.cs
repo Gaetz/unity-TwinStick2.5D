@@ -4,19 +4,30 @@ using UnityEngine;
 
 public class MyReplay : MonoBehaviour
 {
-    private const int bufferFrame = 100;
+    private const int bufferFrame = 1000;
     private MyKeyFrame[] keyFrames = new MyKeyFrame[bufferFrame];
     private Rigidbody rigidbody;
+
+    private GameManager manager;
 
     // Use this for initialization
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        manager = GameObject.FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(manager.isRecording)
+        {
+            Record();
+        }
+        else
+        {
+            Playback();
+        }
         Record();
     }
 
